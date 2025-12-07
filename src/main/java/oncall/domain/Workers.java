@@ -54,7 +54,6 @@ public class Workers {
 
         if (preWorker != null && preWorker.equals(nextWorker)) {
             nextWorker = weekendsWorkers.remove(1);
-            System.out.println(nextWorker);
             weekendsWorkers.add(weekendsWorkers.get(0));
             weekendsWorkers.add(nextWorker);
             return nextWorker;
@@ -64,7 +63,6 @@ public class Workers {
         if (weekendsWorkers.size() < originSize) {
             weekendsWorkers.add(nextWorker);
         }
-        System.out.println(nextWorker);
         return nextWorker;
     }
 }
