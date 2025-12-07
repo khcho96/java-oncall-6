@@ -9,6 +9,7 @@ public class Workers {
 
     private List<String> weekdaysWorkers;
     private List<String> weekendsWorkers;
+    private int originSize;
 
     private Workers() {}
 
@@ -18,6 +19,7 @@ public class Workers {
 
     public void registerWeekdaysWorkers(List<String> weekdaysWorkers) {
         this.weekdaysWorkers = new ArrayList<>(weekdaysWorkers);
+        originSize = weekdaysWorkers.size();
     }
 
     public void registerWeekendsWorkers(List<String> weekendsWorkers) {
@@ -35,12 +37,15 @@ public class Workers {
 
         if (preWorker != null && preWorker.equals(nextWorker)) {
             nextWorker = weekdaysWorkers.remove(1);
+            weekdaysWorkers.add(weekdaysWorkers.get(0));
             weekdaysWorkers.add(nextWorker);
             return nextWorker;
         }
 
         weekdaysWorkers.remove(0);
-        weekdaysWorkers.add(nextWorker);
+        if (weekdaysWorkers.size() < originSize) {
+            weekdaysWorkers.add(nextWorker);
+        }
         return nextWorker;
     }
 
@@ -49,12 +54,17 @@ public class Workers {
 
         if (preWorker != null && preWorker.equals(nextWorker)) {
             nextWorker = weekendsWorkers.remove(1);
+            System.out.println(nextWorker);
+            weekendsWorkers.add(weekendsWorkers.get(0));
             weekendsWorkers.add(nextWorker);
             return nextWorker;
         }
 
         weekendsWorkers.remove(0);
-        weekendsWorkers.add(nextWorker);
+        if (weekendsWorkers.size() < originSize) {
+            weekendsWorkers.add(nextWorker);
+        }
+        System.out.println(nextWorker);
         return nextWorker;
     }
 }
