@@ -13,12 +13,12 @@ public class InputView {
         return Console.readLine();
     }
 
-    public static String readWeekDaysWorkers() {
+    public static String readWeekdaysWorkers() {
         System.out.print(WEEKDAYS_WORKERS_REQUEST);
         return Console.readLine();
     }
 
-    public static String readWeekEndsWorkers() {
+    public static String readWeekendsWorkers() {
         System.out.print(WEEKENDS_WORKERS_REQUEST);
         return Console.readLine();
     }
