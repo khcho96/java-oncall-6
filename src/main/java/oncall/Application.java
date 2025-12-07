@@ -43,7 +43,7 @@ public class Application {
         List<String> weekendsWorkers = InputParser.parseWorkers(rawWeekendsWorkers);
 
         workers.validateMatchWeekdaysAnd(weekendsWorkers);
-//        workers.registerWeekdaysWorkers(weekendsWorkers);
+        workers.registerWeekdaysWorkers(weekendsWorkers);
 
 //        List<OnCallPerDay> result = onCallResult.getResult();
 //        for (OnCallPerDay onCallPerDay : result) {
