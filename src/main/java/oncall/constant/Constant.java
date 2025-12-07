@@ -21,5 +21,4 @@ public final class Constant {
     );
     public static final List<String> DAYS_OF_THE_WEEK = List.of("월", "화", "수", "목", "금", "토", "일");
     public static final List<String> WEEKDAYS = List.of("월", "화", "수", "목", "금");
-    public static final List<String> WEEKENDS = List.of("토", "일");
 }

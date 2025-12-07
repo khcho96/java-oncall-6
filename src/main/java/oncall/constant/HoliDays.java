@@ -27,12 +27,4 @@ public enum HoliDays {
         }
         return false;
     }
-
-    public int getMonth() {
-        return month;
-    }
-
-    public int getDay() {
-        return day;
-    }
 }
