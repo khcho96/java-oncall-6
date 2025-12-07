@@ -6,6 +6,7 @@ import java.util.List;
 import oncall.constant.Constant;
 import oncall.domain.OnCallPerDay;
 import oncall.domain.OnCallResult;
+import oncall.domain.Workers;
 import oncall.util.InputParser;
 import oncall.util.NumberConvertor;
 import oncall.view.InputView;
@@ -33,9 +34,17 @@ public class Application {
             dayIndex++;
         }
 
-        List<OnCallPerDay> result = onCallResult.getResult();
-        for (OnCallPerDay onCallPerDay : result) {
-            System.out.println(onCallPerDay);
-        }
+        String rawWeekDaysWorkers = InputView.readWeekDaysWorkers();
+        List<String> weekDaysWorkers = InputParser.parseWorkers(rawWeekDaysWorkers);
+
+//        Workers workers = Workers.newInstance();
+//        workers.registerWeekdaysWorkers(weekDaysWorkers);
+
+
+
+//        List<OnCallPerDay> result = onCallResult.getResult();
+//        for (OnCallPerDay onCallPerDay : result) {
+//            System.out.println(onCallPerDay);
+//        }
     }
 }

@@ -16,7 +16,7 @@ public final class InputParser {
 
         Validator.validateMonthAndDayFormat(rawInput);
 
-        List<String> monthAndDay = Stream.of(rawInput.strip().split(DELIMITER))
+        List<String> monthAndDay = Stream.of(rawInput.split(DELIMITER))
                 .map(String::strip)
                 .toList();
 
@@ -29,15 +29,20 @@ public final class InputParser {
         return monthAndDay;
     }
 
-//    public static List<String> parseWorkers(String rawInput) {
-//        Validator.validateNullOrBlank(rawInput);
-//        rawInput = rawInput.strip();
-//
-//        Validator.validateCsvFormat(rawInput);
-//
-//        return Stream.of(rawInput.split(DELIMITER))
-//                .map(String::strip)
-//                .map(NumberConvertor::convertToNumber)
-//                .toList();
-//    }
+    public static List<String> parseWorkers(String rawInput) {
+        Validator.validateNullOrBlank(rawInput);
+        rawInput = rawInput.strip();
+
+        Validator.validateWorkersFormat(rawInput);
+
+        List<String> workers = Stream.of(rawInput.split(DELIMITER))
+                .map(String::strip)
+                .toList();
+
+        Validator.validateWorkersNameLength(workers);
+        Validator.validateWorkersCount(workers);
+        Validator.validateWorkersUnique(workers);
+
+        return workers;
+    }
 }
