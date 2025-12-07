@@ -2,13 +2,12 @@ package oncall.util;
 
 import static oncall.constant.ErrorMessage.INVALID_ERROR;
 
-import java.util.List;
+import oncall.constant.Constant;
 
 public final class Validator {
 
     private static final String MONTH_DAY_FORMAT = "^ *\\d+ *, *[가-힣]+ *$";
-    private static final String NUMBER_FORMAT = "\\d+";
-    private static final List<String> DAY_OF_THE_WEEK = List.of("월", "화", "수", "목", "금", "토", "일");
+
     private Validator() {}
 
     public static void validateMonthAndDayFormat(String rawInput) {
@@ -24,7 +23,7 @@ public final class Validator {
     }
 
     public static void validateDay(String day) {
-        if (!DAY_OF_THE_WEEK.contains(day)) {
+        if (!Constant.DAYS_OF_THE_WEEK.contains(day)) {
             throw new IllegalArgumentException(INVALID_ERROR.getErrorMessage());
         }
     }
@@ -32,20 +31,6 @@ public final class Validator {
     public static void validateNullOrBlank(String input) {
         if (input == null || input.isBlank()) {
             throw new IllegalArgumentException(INVALID_ERROR.getErrorMessage());
-        }
-    }
-
-    public static void validateXxx(String input) {
-        if (input == null || input.isBlank()) {
-            throw new IllegalArgumentException(XXX_ERROR.getErrorMessage());
-        }
-
-        if (!input.matches(NUMBER_FORMAT)) {
-            throw new IllegalArgumentException(XXX_ERROR.getErrorMessage());
-        }
-
-        if (!input.matches(CSV_FORMAT)) {
-            throw new IllegalArgumentException(XXX_ERROR.getErrorMessage());
         }
     }
 }
