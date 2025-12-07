@@ -1,7 +1,15 @@
 package oncall;
 
+import java.util.List;
+import oncall.util.InputParser;
+import oncall.view.InputView;
+
 public class Application {
     public static void main(String[] args) {
-        // TODO: 프로그램 구현
+
+        String rawMonthAndDay = InputView.readMonthAndDay();
+        List<String> monthAndDay = InputParser.parseMonthAndDay(rawMonthAndDay);
+
+
     }
 }
