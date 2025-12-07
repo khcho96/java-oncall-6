@@ -1,36 +1,189 @@
 package oncall;
 
 import static camp.nextstep.edu.missionutils.test.Assertions.assertSimpleTest;
+import static oncall.constant.ErrorMessage.INVALID_ERROR;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import camp.nextstep.edu.missionutils.test.NsTest;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class ApplicationTest extends NsTest {
 
     private static final String LINE_SEPARATOR = System.lineSeparator();
 
     @Test
-    void 예외_테스트() {
+    void 월_요일_입력_공백이면_예외_발생() {
         assertSimpleTest(() -> {
-            run("0,일",
+            run(" ",
                     "4,토",
-                    "허브,쥬니,말랑,라온,헤나,우코,에단,수달,파워,히이로,마코,슬링키,모디,연어,깃짱,리오,고니,박스터,달리,조이,노아이즈,도이,도치,홍고,스캇,폴로,해시,로지,첵스,아이크,우가,푸만능,애쉬,로이스,오션",
-                    "오션,로이스,애쉬,푸만능,우가,아이크,첵스,로지,해시,폴로,스캇,홍고,도치,도이,노아이즈,조이,달리,박스터,고니,리오,깃짱,연어,모디,슬링키,마코,히이로,파워,수달,에단,우코,헤나,라온,말랑,쥬니,허브"
+                    "허브,쥬니,말랑,라온,헤나",
+                    "허브,쥬니,말랑,라온,헤나"
             );
             assertThat(output()).contains(
-                    "[ERROR]",
-                    "4월 1일 토 오션" + LINE_SEPARATOR,
-                    "4월 2일 일 로이스" + LINE_SEPARATOR,
-                    "4월 3일 월 허브" + LINE_SEPARATOR,
-                    "4월 4일 화 쥬니" + LINE_SEPARATOR,
-                    "4월 5일 수 말랑" + LINE_SEPARATOR
+                    INVALID_ERROR.getErrorMessage()
+            );
+        });
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"1-월", "1토"})
+    void 월_요일_입력_형식에_맞지_않으면_예외_발생(String input) {
+        assertSimpleTest(() -> {
+            run(input,
+                    "4,토",
+                    "허브,쥬니,말랑,라온,헤나",
+                    "허브,쥬니,말랑,라온,헤나"
+            );
+            assertThat(output()).contains(
+                    INVALID_ERROR.getErrorMessage()
             );
         });
     }
 
     @Test
-    void 기능_테스트() {
+    void 월_입력_숫자_아니면_예외_발생() {
+        assertSimpleTest(() -> {
+            run("a,일",
+                    "4,토",
+                    "허브,쥬니,말랑,라온,헤나",
+                    "허브,쥬니,말랑,라온,헤나"
+            );
+            assertThat(output()).contains(
+                    INVALID_ERROR.getErrorMessage()
+            );
+        });
+    }
+
+    @Test
+    void 월_입력_1이상_12이하__아니면_예외_발생() {
+        assertSimpleTest(() -> {
+            run("0,일",
+                    "4,토",
+                    "허브,쥬니,말랑,라온,헤나",
+                    "허브,쥬니,말랑,라온,헤나"
+            );
+            assertThat(output()).contains(
+                    INVALID_ERROR.getErrorMessage()
+            );
+        });
+    }
+
+    @Test
+    void 요일_입력_요일이_아니면_예외_발생() {
+        assertSimpleTest(() -> {
+            run("1,알",
+                    "4,토",
+                    "허브,쥬니,말랑,라온,헤나",
+                    "허브,쥬니,말랑,라온,헤나"
+            );
+            assertThat(output()).contains(
+                    INVALID_ERROR.getErrorMessage()
+            );
+        });
+    }
+
+    @Test
+    void 근무자_입력_공백이면_예외_발생() {
+        assertSimpleTest(() -> {
+            run("4,토",
+                    " ",
+                    "허브,쥬니,말랑,라온,헤나",
+                    "허브,쥬니,말랑,라온,헤나"
+            );
+            assertThat(output()).contains(
+                    INVALID_ERROR.getErrorMessage()
+            );
+        });
+    }
+
+    @Test
+    void 근무자_입력_형식에_맞지_않으면_예외_발생() {
+        assertSimpleTest(() -> {
+            run("4,토",
+                    "허브 쥬니 말랑 라온 헤나",
+                    "허브,쥬니,말랑,라온,헤나",
+                    "허브,쥬니,말랑,라온,헤나"
+            );
+            assertThat(output()).contains(
+                    INVALID_ERROR.getErrorMessage()
+            );
+        });
+    }
+
+    @Test
+    void 근무자_입력_이름이_1자이상_5자이하가_아니면_예외_발생() {
+        assertSimpleTest(() -> {
+            run("4,토",
+                    "허브허브허브,쥬니,말랑,라온,헤나",
+                    "허브,쥬니,말랑,라온,헤나",
+                    "허브,쥬니,말랑,라온,헤나"
+            );
+            assertThat(output()).contains(
+                    INVALID_ERROR.getErrorMessage()
+            );
+        });
+    }
+
+    @Test
+    void 근무자_입력_인원이_5명_미만이면_예외_발생() {
+        assertSimpleTest(() -> {
+            run("4,토",
+                    "허브,쥬니,말랑,라온",
+                    "허브,쥬니,말랑,라온,헤나",
+                    "허브,쥬니,말랑,라온,헤나"
+            );
+            assertThat(output()).contains(
+                    INVALID_ERROR.getErrorMessage()
+            );
+        });
+    }
+
+    @Test
+    void 근무자_입력_인원이_35명_초과면_예외_발생() {
+        assertSimpleTest(() -> {
+            run("4,토",
+                    "허브,쥬니,말랑,라온,헤나,우코,에단,수달,파워,히이로,마코,슬링키,모디,연어,깃짱,리오,고니,박스터,달리,조이,노아이즈,도이,도치,홍고,스캇,폴로,해시,로지,첵스,아이크,우가,푸만능,애쉬,로이스,오션,초과이름",
+                    "허브,쥬니,말랑,라온,헤나",
+                    "허브,쥬니,말랑,라온,헤나"
+            );
+            assertThat(output()).contains(
+                    INVALID_ERROR.getErrorMessage()
+            );
+        });
+    }
+
+    @Test
+    void 근무자_입력_중복이면_예외_발생() {
+        assertSimpleTest(() -> {
+            run("4,토",
+                    "허브,쥬니,말랑,라온,라온",
+                    "허브,쥬니,말랑,라온,헤나",
+                    "허브,쥬니,말랑,라온,헤나"
+            );
+            assertThat(output()).contains(
+                    INVALID_ERROR.getErrorMessage()
+            );
+        });
+    }
+
+    @Test
+    void 휴일_근무자_입력_평일_근무자_목록과_일치하지_않으면_예외_발생() {
+        assertSimpleTest(() -> {
+            run("4,토",
+                    "허브,쥬니,말랑,라온,헤나",
+                    "제이콥,쥬니,말랑,라온,헤나",
+                    "허브,쥬니,말랑,라온,헤나"
+            );
+            assertThat(output()).contains(
+                    INVALID_ERROR.getErrorMessage()
+            );
+        });
+    }
+
+    @Test
+    void 기능_테스트_평일_근무_후_바로_다음날_휴일_근무인_경우() {
         assertSimpleTest(() -> {
             run(
                     "4,토",
@@ -68,6 +221,50 @@ class ApplicationTest extends NsTest {
                     "4월 28일 금 조이" + LINE_SEPARATOR,
                     "4월 29일 토 해시" + LINE_SEPARATOR,
                     "4월 30일 일 폴로"
+            );
+        });
+    }
+
+    @Test
+    void 기능_테스트_휴일_근무_후_바로_다음날_평일_근무인_경우() {
+        assertSimpleTest(() -> {
+            run(
+                    "10,월",
+                    "준팍,도밥,수아,루루,글로,솔로스타,우코,슬링키,참새,도리,고니",
+                    "수아,루루,글로,솔로스타,우코,슬링키,참새,도리,준팍,도밥,고니"
+            );
+            assertThat(output()).contains(
+                    "10월 1일 월 준팍\n"
+                            + "10월 2일 화 도밥\n"
+                            + "10월 3일 수(휴일) 수아\n"
+                            + "10월 4일 목 루루\n"
+                            + "10월 5일 금 수아\n"
+                            + "10월 6일 토 루루\n"
+                            + "10월 7일 일 글로\n"
+                            + "10월 8일 월 솔로스타\n"
+                            + "10월 9일 화(휴일) 우코\n"
+                            + "10월 10일 수 글로\n"
+                            + "10월 11일 목 우코\n"
+                            + "10월 12일 금 슬링키\n"
+                            + "10월 13일 토 솔로스타\n"
+                            + "10월 14일 일 슬링키\n"
+                            + "10월 15일 월 참새\n"
+                            + "10월 16일 화 도리\n"
+                            + "10월 17일 수 고니\n"
+                            + "10월 18일 목 준팍\n"
+                            + "10월 19일 금 도밥\n"
+                            + "10월 20일 토 참새\n"
+                            + "10월 21일 일 도리\n"
+                            + "10월 22일 월 수아\n"
+                            + "10월 23일 화 루루\n"
+                            + "10월 24일 수 글로\n"
+                            + "10월 25일 목 솔로스타\n"
+                            + "10월 26일 금 우코\n"
+                            + "10월 27일 토 준팍\n"
+                            + "10월 28일 일 도밥\n"
+                            + "10월 29일 월 슬링키\n"
+                            + "10월 30일 화 참새\n"
+                            + "10월 31일 수 도리"
             );
         });
     }
