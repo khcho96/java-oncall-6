@@ -4,6 +4,7 @@ import static oncall.constant.Constant.COUNT_OF_DAYS_IN_MONTH;
 
 import java.util.List;
 import oncall.constant.Constant;
+import oncall.domain.OnCallPerDay;
 import oncall.domain.OnCallResult;
 import oncall.domain.Workers;
 import oncall.util.InputParser;
@@ -43,7 +44,9 @@ public class Application {
         List<String> weekendsWorkers = InputParser.parseWorkers(rawWeekendsWorkers);
 
         workers.validateMatchWeekdaysAnd(weekendsWorkers);
-        workers.registerWeekdaysWorkers(weekendsWorkers);
+        workers.registerWeekendsWorkers(weekendsWorkers);
+
+        onCallResult.assignWorkers(workers);
 
 //        List<OnCallPerDay> result = onCallResult.getResult();
 //        for (OnCallPerDay onCallPerDay : result) {

@@ -29,6 +29,23 @@ public class OnCallResult {
         return Constant.WEEKDAYS.contains(dayOfTheWeek);
     }
 
+    public void assignWorkers(Workers workers) {
+        String preWorker = null;
+        for (OnCallPerDay onCallPerDay : result) {
+            if (onCallPerDay.isWeekdays()) {
+                String nextWorker = workers.getNextWeekdaysWorker(preWorker);
+                onCallPerDay.assignWorker(nextWorker);
+                preWorker = nextWorker;
+                continue;
+            }
+
+            String nextWorker = workers.getNextHolidaysWorker(preWorker);
+            onCallPerDay.assignWorker(nextWorker);
+
+            preWorker = nextWorker;
+        }
+    }
+
     public List<OnCallPerDay> getResult() {
         return result;
     }

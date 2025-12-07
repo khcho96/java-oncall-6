@@ -2,6 +2,7 @@ package oncall.domain;
 
 import static oncall.constant.ErrorMessage.INVALID_ERROR;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Workers {
@@ -16,16 +17,44 @@ public class Workers {
     }
 
     public void registerWeekdaysWorkers(List<String> weekdaysWorkers) {
-        this.weekdaysWorkers = weekdaysWorkers;
+        this.weekdaysWorkers = new ArrayList<>(weekdaysWorkers);
     }
 
     public void registerWeekendsWorkers(List<String> weekendsWorkers) {
-        this.weekendsWorkers = weekendsWorkers;
+        this.weekendsWorkers = new ArrayList<>(weekendsWorkers);
     }
 
     public void validateMatchWeekdaysAnd(List<String> weekendsWorkers) {
         if (!weekdaysWorkers.containsAll(weekendsWorkers) || !weekendsWorkers.containsAll(weekdaysWorkers)) {
             throw new IllegalArgumentException(INVALID_ERROR.getErrorMessage());
         }
+    }
+
+    public String getNextWeekdaysWorker(String preWorker) {
+        String nextWorker = weekdaysWorkers.get(0);
+
+        if (preWorker != null && preWorker.equals(nextWorker)) {
+            nextWorker = weekdaysWorkers.remove(1);
+            weekdaysWorkers.add(nextWorker);
+            return nextWorker;
+        }
+
+        weekdaysWorkers.remove(0);
+        weekdaysWorkers.add(nextWorker);
+        return nextWorker;
+    }
+
+    public String getNextHolidaysWorker(String preWorker) {
+        String nextWorker = weekendsWorkers.get(0);
+
+        if (preWorker != null && preWorker.equals(nextWorker)) {
+            nextWorker = weekendsWorkers.remove(1);
+            weekendsWorkers.add(nextWorker);
+            return nextWorker;
+        }
+
+        weekendsWorkers.remove(0);
+        weekendsWorkers.add(nextWorker);
+        return nextWorker;
     }
 }

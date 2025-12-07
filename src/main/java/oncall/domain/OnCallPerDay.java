@@ -1,12 +1,14 @@
 package oncall.domain;
 
+import oncall.constant.Constant;
+
 public class OnCallPerDay {
 
     private final int month;
     private final int day;
     private final String dayOfTheWeek;
     private final boolean isHoliDayOnWeekDays;
-//    private final String worker;
+    private String worker;
 
     private OnCallPerDay(int month, int day, String dayOfTheWeek, boolean isHoliDayOnWeekDays) {
         this.month = month;
@@ -19,8 +21,20 @@ public class OnCallPerDay {
         return new OnCallPerDay(month, day, dayOfTheWeek, isHoliDayOnWeekDays);
     }
 
+    public boolean isWeekdays() {
+        return Constant.WEEKDAYS.contains(dayOfTheWeek) && !isHoliDayOnWeekDays;
+    }
+
+    public void assignWorker(String nextWorker) {
+        worker = nextWorker;
+    }
+
     @Override
     public String toString() {
-        return month + "월 " + day + "일 " + dayOfTheWeek + "(" + isHoliDayOnWeekDays + ") " + "이름";
+        String holiDay = "";
+        if (isHoliDayOnWeekDays) {
+            holiDay = "(휴일)";
+        }
+        return month + "월 " + day + "일 " + dayOfTheWeek + holiDay + " " + worker;
     }
 }
