@@ -315,6 +315,48 @@ class ApplicationTest extends NsTest {
         });
     }
 
+    @Test
+    void 기능_테스트_2월_화요일() {
+        assertSimpleTest(() -> {
+            run(
+                    "2,화",
+                    "a,b,c,d,e,f,g",
+                    "b,c,f,d,e,a,g"
+            );
+            assertThat(output()).contains(
+                    """
+                            2월 1일 화 a
+                            2월 2일 수 b
+                            2월 3일 목 c
+                            2월 4일 금 d
+                            2월 5일 토 b
+                            2월 6일 일 c
+                            2월 7일 월 e
+                            2월 8일 화 f
+                            2월 9일 수 g
+                            2월 10일 목 a
+                            2월 11일 금 b
+                            2월 12일 토 f
+                            2월 13일 일 d
+                            2월 14일 월 c
+                            2월 15일 화 d
+                            2월 16일 수 e
+                            2월 17일 목 f
+                            2월 18일 금 g
+                            2월 19일 토 e
+                            2월 20일 일 a
+                            2월 21일 월 b
+                            2월 22일 화 a
+                            2월 23일 수 c
+                            2월 24일 목 d
+                            2월 25일 금 e
+                            2월 26일 토 g
+                            2월 27일 일 b
+                            2월 28일 월 f"""
+            );
+        });
+    }
+
     @Override
     protected void runMain() {
         Application.main(new String[]{});
