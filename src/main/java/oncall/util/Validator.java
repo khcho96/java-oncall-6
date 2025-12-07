@@ -9,6 +9,11 @@ public final class Validator {
 
     private static final String MONTH_DAY_FORMAT = "^ *\\d+ *, *[가-힣]+ *$";
     private static final String WORKERS_FORMAT = "^ *[가-힣a-zA-Z]+ *(, *[가-힣a-zA-Z]+ *)*$";
+    private static final int NAME_LENGTH_MAX = 5;
+    private static final int WORKER_COUNT_MIN = 5;
+    private static final int WORKER_COUNT_MAX = 35;
+    private static final int MONTH_MIN = 1;
+    private static final int MONTH_MAX = 12;
 
     private Validator() {}
 
@@ -25,7 +30,7 @@ public final class Validator {
     }
 
     public static void validateMonth(int month) {
-        if (month < 1 || month > 12) {
+        if (month < MONTH_MIN || month > MONTH_MAX) {
             throw new IllegalArgumentException(INVALID_ERROR.getErrorMessage());
         }
     }
@@ -44,14 +49,14 @@ public final class Validator {
 
     public static void validateWorkersNameLength(List<String> workers) {
         for (String worker : workers) {
-            if (worker.isEmpty() || worker.length() > 5) {
+            if (worker.isEmpty() || worker.length() > NAME_LENGTH_MAX) {
                 throw new IllegalArgumentException(INVALID_ERROR.getErrorMessage());
             }
         }
     }
 
     public static void validateWorkersCount(List<String> workers) {
-        if (workers.size() < 5 || workers.size() > 35) {
+        if (workers.size() < WORKER_COUNT_MIN || workers.size() > WORKER_COUNT_MAX) {
             throw new IllegalArgumentException(INVALID_ERROR.getErrorMessage());
         }
     }
