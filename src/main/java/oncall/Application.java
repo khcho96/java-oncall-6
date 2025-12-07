@@ -37,8 +37,8 @@ public class Application {
         String rawWeekDaysWorkers = InputView.readWeekDaysWorkers();
         List<String> weekDaysWorkers = InputParser.parseWorkers(rawWeekDaysWorkers);
 
-//        Workers workers = Workers.newInstance();
-//        workers.registerWeekdaysWorkers(weekDaysWorkers);
+        Workers workers = Workers.newInstance();
+        workers.registerWeekdaysWorkers(weekDaysWorkers);
 
 
 
