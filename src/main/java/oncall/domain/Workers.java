@@ -3,6 +3,7 @@ package oncall.domain;
 import static oncall.constant.ErrorMessage.INVALID_ERROR;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class Workers {
@@ -27,7 +28,8 @@ public class Workers {
     }
 
     public void validateMatchWeekdaysAnd(List<String> weekendsWorkers) {
-        if (!weekdaysWorkers.containsAll(weekendsWorkers) || !weekendsWorkers.containsAll(weekdaysWorkers)) {
+        HashSet<String> weekdaysWorkers = new HashSet<>(this.weekdaysWorkers);
+        if (!weekdaysWorkers.equals(new HashSet<>(weekendsWorkers))) {
             throw new IllegalArgumentException(INVALID_ERROR.getErrorMessage());
         }
     }

@@ -30,7 +30,7 @@ public class OnCallResult {
     }
 
     public void assignWorkers(Workers workers) {
-        String preWorker = null;
+        String preWorker = "";
         for (OnCallPerDay onCallPerDay : result) {
             if (onCallPerDay.isWeekdays()) {
                 String nextWorker = workers.getNextWeekdaysWorker(preWorker);

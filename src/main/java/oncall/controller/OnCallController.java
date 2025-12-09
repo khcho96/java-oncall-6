@@ -16,19 +16,19 @@ public class OnCallController {
     }
 
     public void run() {
-        method1();
-        method2();
-        method3();
+        registerMonthAndDay();
+        registerWeekdaysWorkers();
+        registerWeekendsWorkers();
         OnCallResultDto result = getResult();
         OutputView.printResult(result);
     }
 
-    private void method1() {
+    private void registerMonthAndDay() {
         while (true) {
             try {
                 String rawMonthAndDay = InputView.readMonthAndDay();
                 List<String> monthAndDay = InputParser.parseMonthAndDay(rawMonthAndDay);
-                onCallService.method1(monthAndDay);
+                onCallService.registerMonthAndDay(monthAndDay);
                 return;
             } catch (IllegalArgumentException e) {
                 OutputView.printErrorMessage(e);
@@ -36,12 +36,12 @@ public class OnCallController {
         }
     }
 
-    private void method2() {
+    private void registerWeekdaysWorkers() {
         while (true) {
             try {
                 String rawWeekdaysWorkers = InputView.readWeekdaysWorkers();
                 List<String> weekdaysWorkers = InputParser.parseWorkers(rawWeekdaysWorkers);
-                onCallService.method2(weekdaysWorkers);
+                onCallService.registerWeekdaysWorkers(weekdaysWorkers);
                 return;
             } catch (IllegalArgumentException e) {
                 OutputView.printErrorMessage(e);
@@ -49,12 +49,12 @@ public class OnCallController {
         }
     }
 
-    private void method3() {
+    private void registerWeekendsWorkers() {
         while (true) {
             try {
                 String rawWeekendsWorkers = InputView.readWeekendsWorkers();
                 List<String> weekendsWorkers = InputParser.parseWorkers(rawWeekendsWorkers);
-                onCallService.method3(weekendsWorkers);
+                onCallService.registerWeekendsWorkers(weekendsWorkers);
                 return;
             } catch (IllegalArgumentException e) {
                 OutputView.printErrorMessage(e);
