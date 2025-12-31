@@ -1,4 +1,4 @@
-package oncall.domain;
+package oncall.domain.date;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,5 +31,9 @@ public class Dates {
 
             index++;
         }
+    }
+
+    public List<Date> getDates() {
+        return dates;
     }
 }

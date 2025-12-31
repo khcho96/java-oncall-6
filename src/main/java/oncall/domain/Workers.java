@@ -1,20 +1,27 @@
 package oncall.domain;
 
-import java.util.ArrayList;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import oncall.constant.ErrorMessage;
+import oncall.constant.Weeks;
 
 public class Workers {
 
-    private final Map<Weeks, List<Worker>> workers;
+    private final Map<Weeks, Deque<Worker>> workers;
+    private final Map<Weeks, Deque<Worker>> workersWaiting;
 
     private Workers() {
         workers = new HashMap<>();
-        workers.put(Weeks.WEEKDAYS, new ArrayList<>());
-        workers.put(Weeks.HOLIDAYS, new ArrayList<>());
+        workers.put(Weeks.WEEKDAYS, new ArrayDeque<>());
+        workers.put(Weeks.HOLIDAYS, new ArrayDeque<>());
+
+        workersWaiting = new HashMap<>();
+        workersWaiting.put(Weeks.WEEKDAYS, new ArrayDeque<>());
+        workersWaiting.put(Weeks.HOLIDAYS, new ArrayDeque<>());
     }
 
     public static Workers newInstance() {
@@ -63,5 +70,22 @@ public class Workers {
         if (this.workers.get(weeks).size() < 5) {
             throw new IllegalArgumentException(ErrorMessage.NAME_MAX_ERROR.getErrorMessage());
         }
+    }
+
+    public Worker next(Weeks weeks, Worker lastWorker) {
+        if (workersWaiting.get(weeks).isEmpty()) {
+            Worker nextWorker = workers.get(weeks).removeFirst();
+            workers.get(weeks).addLast(nextWorker);
+
+            if (nextWorker.equals(lastWorker)) {
+                workersWaiting.get(weeks).addLast(nextWorker);
+                nextWorker = workers.get(weeks).removeFirst();
+                workers.get(weeks).addLast(nextWorker);
+            }
+
+            return nextWorker;
+        }
+
+        return workersWaiting.get(weeks).removeFirst();
     }
 }

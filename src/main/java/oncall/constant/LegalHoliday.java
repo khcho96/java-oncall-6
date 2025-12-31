@@ -1,8 +1,8 @@
-package oncall.domain;
+package oncall.constant;
 
 import java.util.Arrays;
 
-public enum Holiday {
+public enum LegalHoliday {
 
     NEW_DAY(1,1),
     MARCH_FIRST(3,1),
@@ -18,14 +18,14 @@ public enum Holiday {
     private final int month;
     private final int day;
 
-    Holiday(int month, int day) {
+    LegalHoliday(int month, int day) {
         this.month = month;
         this.day = day;
     }
 
-    public static Holiday of(int month, int day) {
+    public static LegalHoliday of(int month, int day) {
         return Arrays.stream(values())
-                .filter(holiday -> holiday.month == month && holiday.day == day)
+                .filter(legalHoliday -> legalHoliday.month == month && legalHoliday.day == day)
                 .findFirst()
                 .orElse(NONE);
     }

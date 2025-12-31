@@ -1,7 +1,8 @@
-package oncall.domain;
+package oncall.domain.date;
 
 import java.util.Arrays;
 import oncall.constant.ErrorMessage;
+import oncall.constant.Weeks;
 
 public enum DayOfWeek {
 

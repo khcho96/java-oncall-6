@@ -1,4 +1,7 @@
-package oncall.domain;
+package oncall.domain.date;
+
+import oncall.constant.LegalHoliday;
+import oncall.constant.Weeks;
 
 public class Date {
 
@@ -26,5 +29,21 @@ public class Date {
 
     public DayOfWeek getDayOfWeek() {
         return dayOfWeek;
+    }
+
+    public boolean isWeekdays() {
+        return dayOfWeek.getWeeks().equals(Weeks.WEEKDAYS);
+    }
+
+    public boolean isHolidays() {
+        return dayOfWeek.getWeeks().equals(Weeks.HOLIDAYS);
+    }
+
+    public boolean isBoth() {
+        return dayOfWeek.getWeeks().equals(Weeks.WEEKDAYS) && isLegalHolidays();
+    }
+
+    private boolean isLegalHolidays() {
+        return !LegalHoliday.of(month.getMonth(), day.getDay()).equals(LegalHoliday.NONE);
     }
 }

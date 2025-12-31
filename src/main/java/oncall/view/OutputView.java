@@ -2,6 +2,7 @@ package oncall.view;
 
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+import oncall.domain.OnCalls;
 
 public class OutputView {
 
@@ -17,7 +18,7 @@ public class OutputView {
     private OutputView() {
     }
 
-    public static void print1() {
+    public static void printResult(OnCalls onCalls) {
 
     }
 

@@ -1,12 +1,14 @@
 package oncall;
 
 import java.util.List;
-import oncall.domain.Dates;
-import oncall.domain.Weeks;
+import oncall.domain.date.Dates;
+import oncall.domain.OnCalls;
+import oncall.constant.Weeks;
 import oncall.domain.Workers;
 import oncall.util.InputParser;
 import oncall.util.Retry;
 import oncall.view.InputView;
+import oncall.view.OutputView;
 
 public class Application {
 
@@ -16,21 +18,26 @@ public class Application {
     public static void main(String[] args) {
         setDate();
 
+        registerWorkers();
+
+        OnCalls onCalls = OnCalls.newInstance();
+        onCalls.assignWorkers(dates, workers);
+
+        OutputView.printResult(onCalls);
+    }
+
+    private static void registerWorkers() {
         Retry.retryUntilSuccess(() -> {
-            // 평일
             String readWeekdays = InputView.readWeekdays();
             List<String> weekdaysWorkers = InputParser.parseWorkers(readWeekdays);
 
             workers = Workers.newInstance();
             workers.addWeekdaysWorkers(Weeks.WEEKDAYS, weekdaysWorkers);
 
-            // 휴일
             String readHolidays = InputView.readHolidays();
             List<String> holidaysWorkers = InputParser.parseWorkers(readHolidays);
 
             workers.addHolidaysWorkers(Weeks.HOLIDAYS, holidaysWorkers);
-
-
         });
     }
 

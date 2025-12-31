@@ -1,5 +1,6 @@
 package oncall.domain;
 
+import java.util.Objects;
 import oncall.constant.ErrorMessage;
 
 public class Worker {
@@ -24,5 +25,19 @@ public class Worker {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
+        Worker worker = (Worker) object;
+        return Objects.equals(name, worker.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(name);
     }
 }

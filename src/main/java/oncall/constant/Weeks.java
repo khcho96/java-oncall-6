@@ -1,4 +1,4 @@
-package oncall.domain;
+package oncall.constant;
 
 public enum Weeks {
 
