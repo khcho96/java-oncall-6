@@ -16,12 +16,12 @@ public class InputView {
         return Console.readLine();
     }
 
-    public static String readWeekDays() {
+    public static String readWeekdays() {
         System.out.print("평일 비상 근무 순번대로 사원 닉네임을 입력하세요> ");
         return Console.readLine();
     }
 
-    public static String readHoliDays() {
+    public static String readHolidays() {
         System.out.print("휴일 비상 근무 순번대로 사원 닉네임을 입력하세요> ");
         return Console.readLine();
     }

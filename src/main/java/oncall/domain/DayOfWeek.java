@@ -10,8 +10,8 @@ public enum DayOfWeek {
     WED("수", Weeks.WEEKDAYS),
     THU("목", Weeks.WEEKDAYS),
     FRI("금", Weeks.WEEKDAYS),
-    SAT("토", Weeks.WEEKENDS),
-    SUN("일", Weeks.WEEKENDS),
+    SAT("토", Weeks.HOLIDAYS),
+    SUN("일", Weeks.HOLIDAYS),
     ;
 
     private final String dayOfWeek;

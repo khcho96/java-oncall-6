@@ -49,7 +49,7 @@ public final class InputParser {
 
         Validator.validateDateFormat(readDate);
 
-        String[] splitDate = readDate.split(",");
+        String[] splitDate = readDate.split(DELIMITER);
 
         return Arrays.stream(splitDate)
                 .map(String::strip)
@@ -60,9 +60,16 @@ public final class InputParser {
         return NumberConvertor.convertToNumber(date);
     }
 
-    public static List<String> parseWeekDays(String readWeekDays) {
-        readWeekDays = readWeekDays.strip();
+    public static List<String> parseWorkers(String readWorkers) {
+        readWorkers = readWorkers.strip();
 
-        Validator.validate
+        Validator.validateWorkersFormat(readWorkers);
+
+        List<String> workers = new ArrayList<>();
+        for (String worker : readWorkers.split(DELIMITER)) {
+            workers.add(worker.strip());
+        }
+
+        return workers;
     }
 }

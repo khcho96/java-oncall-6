@@ -2,6 +2,8 @@ package oncall;
 
 import java.util.List;
 import oncall.domain.Dates;
+import oncall.domain.Weeks;
+import oncall.domain.Workers;
 import oncall.util.InputParser;
 import oncall.util.Retry;
 import oncall.view.InputView;
@@ -9,13 +11,26 @@ import oncall.view.InputView;
 public class Application {
 
     static Dates dates;
+    static Workers workers;
 
     public static void main(String[] args) {
         setDate();
 
         Retry.retryUntilSuccess(() -> {
-            String readWeekDays = InputView.readWeekDays();
-            InputParser.parseWeekDays(readWeekDays);
+            // 평일
+            String readWeekdays = InputView.readWeekdays();
+            List<String> weekdaysWorkers = InputParser.parseWorkers(readWeekdays);
+
+            workers = Workers.newInstance();
+            workers.addWeekdaysWorkers(Weeks.WEEKDAYS, weekdaysWorkers);
+
+            // 휴일
+            String readHolidays = InputView.readHolidays();
+            List<String> holidaysWorkers = InputParser.parseWorkers(readHolidays);
+
+            workers.addHolidaysWorkers(Weeks.HOLIDAYS, holidaysWorkers);
+
+
         });
     }
 
