@@ -1,25 +1,26 @@
 package oncall.view;
 
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
+import oncall.domain.OnCall;
 import oncall.domain.OnCalls;
+import oncall.domain.Worker;
+import oncall.domain.date.Date;
 
 public class OutputView {
-
-    private static final String NEW_LINE = System.lineSeparator();
-    private static final Locale KOREA = Locale.KOREA;
-    private static final DateTimeFormatter DATETIME_FMT =
-            DateTimeFormatter.ofPattern("M월 dd일 E요일 HH:mm", KOREA);
-    private static final DateTimeFormatter DATE_FMT =
-            DateTimeFormatter.ofPattern("M월 dd일 E요일", KOREA);
-    private static final DateTimeFormatter TIME_FMT =
-            DateTimeFormatter.ofPattern("HH:mm", KOREA);
 
     private OutputView() {
     }
 
     public static void printResult(OnCalls onCalls) {
-
+        System.out.println();
+        for (OnCall onCall : onCalls.getOnCalls()) {
+            Date date = onCall.getDate();
+            Worker worker = onCall.getWorker();
+            if (onCall.isBoth()) {
+                System.out.printf("%s(휴일) %s\n", date, worker);
+                continue;
+            }
+            System.out.printf("%s %s\n", date, worker);
+        }
     }
 
     public static void printErrorMessage(IllegalArgumentException e) {

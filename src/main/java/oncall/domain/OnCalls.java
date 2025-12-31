@@ -58,6 +58,13 @@ public class OnCalls {
     }
 
     private Worker getLastWorker() {
-        return onCalls.get(onCalls.size() - 1).getWorker();
+        if (!onCalls.isEmpty()) {
+            return onCalls.get(onCalls.size() - 1).getWorker();
+        }
+        return null;
+    }
+
+    public List<OnCall> getOnCalls() {
+        return onCalls;
     }
 }

@@ -19,18 +19,6 @@ public class Date {
         return new Date(month, day, dayOfWeek);
     }
 
-    public Month getMonth() {
-        return month;
-    }
-
-    public Day getDay() {
-        return day;
-    }
-
-    public DayOfWeek getDayOfWeek() {
-        return dayOfWeek;
-    }
-
     public boolean isWeekdays() {
         return dayOfWeek.getWeeks().equals(Weeks.WEEKDAYS);
     }
@@ -45,5 +33,10 @@ public class Date {
 
     private boolean isLegalHolidays() {
         return !LegalHoliday.of(month.getMonth(), day.getDay()).equals(LegalHoliday.NONE);
+    }
+
+    @Override
+    public String toString() {
+        return this.month.getMonth() + "월 " + this.day.getDay() + "일 " + this.dayOfWeek.getDayOfWeek();
     }
 }

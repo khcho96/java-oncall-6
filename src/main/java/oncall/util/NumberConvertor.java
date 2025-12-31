@@ -8,7 +8,7 @@ public final class NumberConvertor {
         try {
             return Integer.parseInt(input);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(ErrorMessage.NUMBER_FORMAT_ERROR.getErrorMessage());
+            throw new IllegalArgumentException(ErrorMessage.INVALID_FORMAT.getErrorMessage());
         }
     }
 }
