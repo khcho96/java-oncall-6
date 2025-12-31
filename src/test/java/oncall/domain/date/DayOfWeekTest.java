@@ -2,7 +2,6 @@ package oncall.domain.date;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 
 import oncall.constant.ErrorMessage;
 import org.junit.jupiter.api.Test;
