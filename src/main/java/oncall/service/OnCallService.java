@@ -1,7 +1,6 @@
 package oncall.service;
 
 import java.util.List;
-import oncall.constant.Weeks;
 import oncall.domain.OnCalls;
 import oncall.domain.Workers;
 import oncall.domain.date.Dates;
@@ -15,12 +14,12 @@ public class OnCallService {
 
     public void registerWorkers(List<String> weekdaysWorkers) {
         workers = Workers.newInstance();
-        workers.addWeekdaysWorkers(Weeks.WEEKDAYS, weekdaysWorkers);
+        workers.addWeekdaysWorkers(weekdaysWorkers);
 
         String readHolidays = InputView.readHolidays();
         List<String> holidaysWorkers = InputParser.parseWorkers(readHolidays);
 
-        workers.addHolidaysWorkers(Weeks.HOLIDAYS, holidaysWorkers);
+        workers.addHolidaysWorkers(holidaysWorkers);
     }
 
     public void setDates(int month, String dayOfWeek) {

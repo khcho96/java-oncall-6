@@ -1,5 +1,6 @@
 package oncall.domain.date;
 
+import java.util.Objects;
 import oncall.constant.LegalHoliday;
 import oncall.constant.Weeks;
 
@@ -38,5 +39,19 @@ public class Date {
     @Override
     public String toString() {
         return this.month.getMonth() + "월 " + this.day.getDay() + "일 " + this.dayOfWeek.getDayOfWeek();
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
+        Date date = (Date) object;
+        return month == date.month && Objects.equals(day, date.day) && dayOfWeek == date.dayOfWeek;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(month, day, dayOfWeek);
     }
 }

@@ -28,22 +28,22 @@ public class Workers {
         return new Workers();
     }
 
-    public void addWeekdaysWorkers(Weeks weeks, List<String> workerNames) {
-        addWorkers(weeks, workerNames);
+    public void addWeekdaysWorkers(List<String> workerNames) {
+        addWorkers(Weeks.HOLIDAYS, workerNames);
     }
 
-    public void addHolidaysWorkers(Weeks weeks, List<String> workerNames) {
-        addWorkers(weeks, workerNames);
+    public void addHolidaysWorkers(List<String> workerNames) {
+        addWorkers(Weeks.WEEKDAYS, workerNames);
         validateWorkersDifference();
     }
 
     private void validateWorkersDifference() {
-        if (!new HashSet<>(workers.get(Weeks.WEEKDAYS)).equals(new HashSet<>(workers.get(Weeks.WEEKDAYS)))) {
+        if (!new HashSet<>(workers.get(Weeks.WEEKDAYS)).equals(new HashSet<>(workers.get(Weeks.HOLIDAYS)))) {
             throw new IllegalArgumentException(ErrorMessage.WORKERS_NAMES_DIFFERENCE_ERROR.getErrorMessage());
         }
     }
 
-    public void addWorkers(Weeks weeks, List<String> workerNames) {
+    private void addWorkers(Weeks weeks, List<String> workerNames) {
         for (String workerName : workerNames) {
             Worker worker = Worker.from(workerName);
             ValidateWorkerUnique(weeks, worker);
@@ -62,13 +62,13 @@ public class Workers {
 
     private void ValidateWorkerMaxSize(Weeks weeks) {
         if (this.workers.get(weeks).size() >= 35) {
-            throw new IllegalArgumentException(ErrorMessage.NAME_MAX_ERROR.getErrorMessage());
+            throw new IllegalArgumentException(ErrorMessage.NAME_COUNT_ERROR.getErrorMessage());
         }
     }
 
     private void validateWorkersMinSize(Weeks weeks) {
         if (this.workers.get(weeks).size() < 5) {
-            throw new IllegalArgumentException(ErrorMessage.NAME_MAX_ERROR.getErrorMessage());
+            throw new IllegalArgumentException(ErrorMessage.NAME_COUNT_ERROR.getErrorMessage());
         }
     }
 
