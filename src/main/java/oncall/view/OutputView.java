@@ -10,9 +10,9 @@ public class OutputView {
     private OutputView() {
     }
 
-    public static void printResult(OnCalls onCalls) {
+    public static void printResult(OnCalls result) {
         System.out.println();
-        for (OnCall onCall : onCalls.getOnCalls()) {
+        for (OnCall onCall : result.getOnCalls()) {
             Date date = onCall.getDate();
             Worker worker = onCall.getWorker();
             if (onCall.isBoth()) {

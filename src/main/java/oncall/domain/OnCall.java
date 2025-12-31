@@ -4,9 +4,9 @@ import oncall.domain.date.Date;
 
 public class OnCall {
 
-    private Date date;
-    private Worker worker;
-    private boolean both;
+    private final Date date;
+    private final Worker worker;
+    private final boolean both;
 
     private OnCall(Date date, Worker worker, boolean both) {
         this.date = date;
